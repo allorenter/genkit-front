@@ -1,21 +1,15 @@
+import 'antd/dist/antd.css';
+import Loading from './components/Loading';
+import GeneratorData from './components/GeneratorData';
+import Header from './components/Header';
 
 function App() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Loading active={false} size={100} color={'#1ABC9C'}>
+      <Header />
+      <GeneratorData />
+    </Loading>
   );
 }
 

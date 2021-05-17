@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { theme } from '../styles/styles';
-import UserControl from './UsersControl';
+import UserControl from './UserControl';
 
 function Header(props){
     const StyledHeader = styled.header`
@@ -13,7 +13,7 @@ function Header(props){
     const StyledBrand = styled.span`
 
     `;
-    // const StyledControlUsersButton 
+
     return (
         <StyledHeader>
             <StyledBrand>GenKit</StyledBrand>

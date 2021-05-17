@@ -2,7 +2,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import styled from '@emotion/styled';
 import UserControlModal from './UserControlModal';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function UserControl(props){
     const [modalVisible, setModalVisible] = useState(false);
@@ -12,11 +12,14 @@ function UserControl(props){
         color: white;
     `;
 
+    console.log('USER CONTROLLL', modalVisible);
     return (
-        <StyledButton onClick={() => setModalVisible(true)}>
-            <UserOutlined />
-            <UserControlModal visible={modalVisible} onCancel={() => setModalVisible(false)} />
-        </StyledButton>
+        <React.Fragment>
+            <StyledButton onClick={() => setModalVisible(true)}>
+                <UserOutlined />
+            </StyledButton>
+            <UserControlModal visible={modalVisible} setVisible={setModalVisible} />
+        </React.Fragment>
     );
 }
 

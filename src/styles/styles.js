@@ -1,9 +1,10 @@
-import { darken, lighten } from "polished";
+import { darken, lighten } from 'polished';
 
 export const theme = {
-    fontColor: "#565757",
-    detailsColor: "#1ABC9C",
-    gray: ""
+    fontColor: '#565757',
+    primary: '#1ABC9C',
+    secondary: '#2C3E50',
+    gray: '#F5F8FA'
 };
 
 export const customButton = (color, backgroundColor) => `
