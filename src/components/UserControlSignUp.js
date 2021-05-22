@@ -5,7 +5,7 @@ import ConnectionErrorContext from '../context/ConectionErrorContext';
 import { setAuth } from '../utils/auth';
 import AppIsLoadedContext from '../context/AppIsLoadedContext';
 
-function UserControlSignIn(props){
+function UserControlSignUp(props){
     const [ , setConnectionError] = useContext(ConnectionErrorContext);
     const [, setAppIsLoaded] = useContext(AppIsLoadedContext);
 
@@ -120,4 +120,4 @@ function UserControlSignIn(props){
     );
 }
 
-export default UserControlSignIn;
+export default UserControlSignUp;

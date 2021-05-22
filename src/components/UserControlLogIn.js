@@ -17,11 +17,15 @@ function UserControlLogIn(props){
             props.setParentModalVisible(false);
             setAppIsLoaded(false);
         }catch(err){
-            console.log(err.status);
-            if((err.response && err.response.status !== 401) || !err.status){
-                setConnectionError(true);
+            console.log(err.response);
+            if(err.response.status === 401){
+                setAuthError(true);
+                return false;
             }
-            setAuthError(true);
+            if(err.response || !err.status){
+                setConnectionError(true);
+                return false;
+            }
         }
     };
 

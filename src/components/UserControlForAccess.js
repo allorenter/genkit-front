@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import UserControlSignIn from './UserControlSignIn';
+import UserControlSignUp from './UserControlSignUp';
 import UserControlLogIn from './UserControlLogIn';
 
 function UserControlForAccess(props){
@@ -11,7 +11,7 @@ function UserControlForAccess(props){
 
     const component = (
         accessType === 'signIn' 
-            ? <UserControlSignIn setAccessType={setAccessType} setParentModalVisible={props.setParentModalVisible} /> 
+            ? <UserControlSignUp setAccessType={setAccessType} setParentModalVisible={props.setParentModalVisible} /> 
             : <UserControlLogIn setAccessType={setAccessType} setParentModalVisible={props.setParentModalVisible} />
     );
 

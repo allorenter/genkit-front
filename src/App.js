@@ -27,7 +27,7 @@ function App() {
   },);
 
   return (
-    <ConnectionError active={connectionError}>
+    <ConnectionError active={connectionError} setActive={setConnectionError} >
       <Loading active={!appIsLoaded} size={100} color={'#1ABC9C'}>
         <AppIsLoadedContext.Provider value={[appIsLoaded, setAppIsLoaded]}>
           <ConnectionErrorContext.Provider value={[connectionError, setConnectionError]}>

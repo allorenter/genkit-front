@@ -32,8 +32,8 @@ function ConnectionError(props) {
                                 type="error"
                                 showIcon
                                 action={
-                                    <Button size="small" danger onClick={() => window.location.replace('')}>
-                                        Ir a inicio
+                                    <Button size="small" danger onClick={() => props.setActive(false)}>
+                                        Volver
                                     </Button>
                                 }
                             />

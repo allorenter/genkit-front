@@ -13,7 +13,7 @@ function UserControlLogOut(props){
     };
 
     const handleCancelButton = () => {
-        props.setVisible(false);
+        props.setParentModalVisible(false);
     };
     
     return (
