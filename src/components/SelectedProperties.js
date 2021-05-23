@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import arrayMove from 'array-move';
 import GeneratorDataContext from '../context/GeneratorDataContext';
 import { theme, customScrollbar } from '../styles/styles';
 import SelectedProperty from './SelectedProperty';
+import { Result } from 'antd';
 
 function SelectedProperties(params) {
     
@@ -20,21 +21,35 @@ function SelectedProperties(params) {
         }
     `;
 
-    function handleDragEnd(){
+    const PropertiesList = React.memo(({ properties }) => properties.map(
+        (property, index) => <SelectedProperty key={index} index={index} {...property} />
+    ));
 
+    function handleDragEnd(result){
+        if(!result.destination){
+            return ;
+        }
+        if(result.destination.index === result.source.index){
+            return; 
+        }
+        setSelectedProperties(
+            arrayMove(
+                selectedProperties, 
+                result.source.index,
+                result.destination.index
+            )
+        );
     }
 
     return(
         <DragDropContext onDragEnd={handleDragEnd}>
             <ContainerSelectedProperties>
                 <Droppable droppableId='list'>
-                    {
-                        (provided) => (
-                            <div ref={provided.innerRef}{...provided.droppableProps}>
-                                
-                            </div>
-                        ) 
-                    }
+                    {(provided) => (
+                        <div ref={provided.innerRef}{...provided.droppableProps}>
+                            <PropertiesList properties={selectedProperties} />
+                        </div>
+                    )}
                 </Droppable>
             </ContainerSelectedProperties>
         </DragDropContext>
