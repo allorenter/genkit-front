@@ -19,7 +19,6 @@ function SelectedProperty(props){
         }
     `;
         
-    console.log("PROPERTY", props)
     return (
         <Draggable draggableId={props.name} index={props.index}>
             {
