@@ -3,9 +3,8 @@ import styled from '@emotion/styled';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import arrayMove from 'array-move';
 import GeneratorDataContext from '../context/GeneratorDataContext';
-import { theme, customScrollbar } from '../styles/styles';
+import { customScrollbar } from '../styles/styles';
 import SelectedProperty from './SelectedProperty';
-import { Result } from 'antd';
 
 function SelectedProperties(params) {
     

@@ -51,8 +51,21 @@ function AddProperty(props) {
     `;
 
     const addPropertyToContextGenerator = (propertyTypeToAdd) => {
-        const repeatedTypeCount = selectedProperties.filter((property) => property?.type?.id === propertyTypeToAdd).length;        
-        const selectedPropertyName = repeatedTypeCount === 0 ? propertyTypeToAdd : `${propertyTypeToAdd}_${repeatedTypeCount}`;
+        const repeatedType = selectedProperties.filter((property) => property?.type?.id === propertyTypeToAdd);
+        const repeatedTypeCount = repeatedType.length;        
+        let selectedPropertyName = propertyTypeToAdd;
+        // en caso de que haya propiedades del mismo tipo
+        if(repeatedTypeCount > 0){
+            // asignamos nuevo nombre a la propiedad
+            selectedPropertyName = `${propertyTypeToAdd}_${repeatedTypeCount + 1}`;
+            // comprobamos si es posible asignar un nombre con un sufijo concatenado menor
+            for (let i=repeatedTypeCount - 1; i >= 0; i--) {
+                const newNameTemp = `${propertyTypeToAdd}_${i + 1}`;
+                if(!repeatedType.find((property) => property.name === newNameTemp)){
+                    selectedPropertyName = newNameTemp;
+                }
+            }
+        }
         setSelectedProperties([ Property(selectedPropertyName, getPropertyTypeById(propertyTypeToAdd)), ...selectedProperties ] );
         setModalVisible(false);
     };
