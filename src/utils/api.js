@@ -26,3 +26,21 @@ export const signInUser = (userName, password) => axios.post(
   `${SERVER_URL}user/sign-in`,
   { userName, password }
 );
+
+export const dataPreview = (dataSchema, size) => axios.post(
+  `${SERVER_URL}generated-data/preview`,
+  { dataSchema, size },
+  getAuthHeader()
+);
+
+export const generateCSV = (dataSchema, size, filename) => axios.post(
+  `${SERVER_URL}generated-data/generate-csv`,
+  { dataSchema, size, filename },
+  getAuthHeader()
+);
+
+export const generateJSON = (dataSchema, size, filename) => axios.post(
+  `${SERVER_URL}generated-data/generate-json`,
+  { dataSchema, size, filename },
+  getAuthHeader()
+);

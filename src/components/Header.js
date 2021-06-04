@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { theme } from '../styles/styles';
 import UserControl from './UserControl';
 
 function Header(props){
