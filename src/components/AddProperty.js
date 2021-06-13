@@ -18,7 +18,7 @@ function AddProperty(props) {
     const GroupTab = styled(Tabs)`
         .ant-tabs-tab{
             color: ${theme.fontColor};
-            font-size: 1.2em;
+            font-size: 1.1em;
             &:hover, &:focus {
                 color: ${theme.primary};
             }
@@ -45,9 +45,8 @@ function AddProperty(props) {
     `;
     const BtnOpenModal = styled(Button)`
         ${customButton('white', theme.primary)}
-        font-size: 1.1em;
-        margin: 30px 15px;
-        width: calc(100% - 30px);
+        font-size: 1em;
+        width: 100%;
     `;
 
     const addPropertyToContextGenerator = (propertyTypeToAdd) => {

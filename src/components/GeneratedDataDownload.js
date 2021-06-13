@@ -3,14 +3,14 @@ import { Button, Modal, InputNumber, Input } from 'antd';
 import { generateCSV, generateJSON } from '../utils/api';
 import GeneratorDataContext from '../context/GeneratorDataContext';
 import fileDownload from 'js-file-download';
+import styled from '@emotion/styled';
+import { theme, customButton } from '../styles/styles';
 
 function GeneratedDataDownload(props){    
     const [modalVisible, setModalVisible] = useState(false);
     const [amount, setAmount] = useState(50);
     const [filename, setFilename] = useState('filename');
     const [selectedProperties, ] = useContext(GeneratorDataContext);
-
-console.log(filename);
 
     const handleDownloadCSV = async () => {
         const response = await generateCSV(selectedProperties, amount, filename);
@@ -24,9 +24,19 @@ console.log(filename);
         fileDownload(json, `${filename}.json`, response.headers['content-type']);
     };
 
+    const DownloadButton = styled(Button)`
+        ${customButton('white', theme.secondary)}    
+        position: absolute;
+        right: 5%;
+        z-index: 1;
+        top: 1.5em;
+    `;
+
     return (
         <React.Fragment>
-            <Button onClick={() => setModalVisible(true)}>DOWNLOAD</Button>
+            <DownloadButton onClick={() => setModalVisible(true)}>
+                Descargar
+            </DownloadButton>
             <Modal
                 title='Descarga'
                 visible={modalVisible}

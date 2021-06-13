@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Input } from 'antd';
 import GeneratorDataContext from '../context/GeneratorDataContext';
+import styled from '@emotion/styled';
 
 function SelectedPropertyName(props){
     const [selectedProperties, setSelectedProperties] = useContext(GeneratorDataContext);
@@ -42,6 +43,10 @@ function SelectedPropertyName(props){
         props.setRenaming(false);
     };
 
+    const PropertyName = styled.span`
+        font-weight: 600;
+    `;
+
     return (
         <React.Fragment>
             { props.renaiming 
@@ -53,7 +58,7 @@ function SelectedPropertyName(props){
                     value={name}
                     placeholder={name}
                 /> 
-                : <span>{props.name}</span>
+                : <PropertyName>{props.name}</PropertyName>
             }
         </React.Fragment>
     );

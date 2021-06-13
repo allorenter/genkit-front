@@ -5,7 +5,7 @@ import { theme } from '../styles/styles';
 import { darken } from 'polished';
 import { Row, Col, Button } from 'antd';
 import SelectedPropertyName from './SelectedPropertyName';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import Icon, { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import GeneratorDataContext from '../context/GeneratorDataContext';
 
 function SelectedProperty(props){
@@ -24,6 +24,10 @@ function SelectedProperty(props){
             }
         }
     `;
+
+    const IconButton = styled(Button)`
+        color: ${theme.primary}
+    `;
         
     return (
         <Draggable draggableId={props.name} index={props.index}>
@@ -31,19 +35,19 @@ function SelectedProperty(props){
                 (provided) => (
                     <StyledSelectedProperty ref={provided.innerRef}{...provided.draggableProps}{...provided.dragHandleProps}>
                         <Row>
-                            <Col xs={20} sm={20} md={18} lg={20} xl={20}>
+                            <Col style={{ display: 'flex', alignItems: 'center' }} xs={20} sm={20} md={18} lg={20} xl={20}>
                                 <SelectedPropertyName name={props.name} renaiming={renaiming} setRenaming={setRenaming}/>
                             </Col>
                             <Col style={{display: 'flex'}} xs={4} sm={4} md={5} lg={4} xl={4}>
-                                <Button style={{padding: '.1em .5em'}} type='link' onClick={() => setRenaming(true)}>
+                                <IconButton style={{padding: '.1em .5em'}} type='link' onClick={() => setRenaming(true)}>
                                     <EditOutlined />
-                                </Button>
-                                <Button 
+                                </IconButton>
+                                <IconButton 
                                     type='link' 
                                     onClick={() => setSelectedProperties(selectedProperties.filter((property) => property.name !== props.name))} 
                                 >
                                     <DeleteOutlined />
-                                </Button>
+                                </IconButton>
                             </Col>
                         </Row>
                     </StyledSelectedProperty>

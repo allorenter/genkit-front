@@ -1,13 +1,13 @@
-import { useState, useEffect, useContext } from 'react';
-import Loading from './Loading';
+import React, { useState, useEffect, useContext } from 'react';
 import { dataPreview } from '../utils/api';
 import ConnectionErrorContext from '../context/ConectionErrorContext';
 import GeneratorDataContext from '../context/GeneratorDataContext';
+import LoadingContext from '../context/LoadingContext';
 import { Table } from "antd";
 
 function DataPreview(props){
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);  
+    const [, setLoading] = useContext(LoadingContext);  
     const [ , setConnectionError] = useContext(ConnectionErrorContext);
     const [selectedProperties, ] = useContext(GeneratorDataContext);
     
@@ -26,7 +26,7 @@ function DataPreview(props){
             }
         }
         fetchData();
-    }, [selectedProperties, setConnectionError]);
+    }, [selectedProperties, setConnectionError, setLoading]);
 
     const formatJson = (json) => {
         json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -40,7 +40,7 @@ function DataPreview(props){
     };
 
     return (
-        <Loading active={loading}>
+        <React.Fragment>
             {props.type === 'csv'
                 ? <Table 
                     pagination={false} 
@@ -54,7 +54,7 @@ function DataPreview(props){
                   />
                 : <pre dangerouslySetInnerHTML={{__html: formatJson(JSON.stringify(data, undefined, 2))}} />
             }
-        </Loading>
+        </React.Fragment>
     );
 }
 

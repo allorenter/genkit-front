@@ -2,8 +2,8 @@ import { darken, lighten } from 'polished';
 
 export const theme = {
     fontColor: '#565757',
-    primary: '#1ABC9C',
-    secondary: '#2C3E50',
+    primary: '#2C3E50',
+    secondary: '#1ABC9C',
     gray: '#F5F8FA'
 };
 

@@ -21,11 +21,11 @@ function GeneratorData(props){
     return (
         <GeneratorDataContext.Provider value={[selectedProperties, setSelectedProperties]}>
             <Row>
-                <Col xs={24} sm={24} md={8} lg={8} xl={6} type='flex'>
+                <Col xs={24} sm={24} md={8} lg={8} xl={6} type='flex' style={{padding: '2em'}}>
                     <AddProperty />
                     <SelectedProperties />
                 </Col>
-                <Col xs={24} sm={24} md={16} lg={16} xl={18}>
+                <Col xs={24} sm={24} md={16} lg={16} xl={18} style={{padding: '1em'}}>
                     <GeneratedDataDownload />
                     <Tabs defaultActiveKey="csv" onChange={(key) => setPreviewType(key)}>
                         <TabPane tab='CSV' key='csv'>

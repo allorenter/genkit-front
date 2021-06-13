@@ -11,12 +11,12 @@ function SelectedProperties(params) {
     const [selectedProperties, setSelectedProperties] = useContext(GeneratorDataContext);
 
     const ContainerSelectedProperties = styled.div`
-        padding: 0 15px;
+        padding-top: 1em;
         height: calc(100vh - 165px);
         overflow: auto;
         ${customScrollbar()}
         @media (max-width: 768px) {
-        height: auto;
+            height: auto;
         }
     `;
 
