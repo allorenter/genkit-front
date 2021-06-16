@@ -24,19 +24,16 @@ function GeneratedDataDownload(props){
         fileDownload(json, `${filename}.json`, response.headers['content-type']);
     };
 
-    const DownloadButton = styled(Button)`
+    const OpenModalButton = styled(Button)`
         ${customButton('white', theme.secondary)}    
-        position: absolute;
-        right: 5%;
-        z-index: 1;
-        top: 1.5em;
+        margin-right: 1em;
     `;
 
     return (
         <React.Fragment>
-            <DownloadButton onClick={() => setModalVisible(true)}>
+            <OpenModalButton onClick={() => setModalVisible(true)}>
                 Descargar
-            </DownloadButton>
+            </OpenModalButton>
             <Modal
                 title='Descarga'
                 visible={modalVisible}
