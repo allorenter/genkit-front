@@ -28,7 +28,7 @@ function ConnectionError(props) {
                             <Alert 
                                 style={{marginTop: '-30vh'}}
                                 message="Error"
-                                description="Ha ocurrido un error de conexión."
+                                description="Ha ocurrido un error."
                                 type="error"
                                 showIcon
                                 action={

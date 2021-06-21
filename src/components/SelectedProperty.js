@@ -5,23 +5,31 @@ import { theme } from '../styles/styles';
 import { darken } from 'polished';
 import { Row, Col, Button } from 'antd';
 import SelectedPropertyName from './SelectedPropertyName';
-import Icon, { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import GeneratorDataContext from '../context/GeneratorDataContext';
+import OptionsRandomString from './OptionsRandomString';
+import OptionsRandomNumber from './OptionsRandomNumber';
+import OptionsCreditCard from './OptionsCreditCard';
+import OptionsDate from './OptionsDate';
 
 function SelectedProperty(props){
     const [renaiming, setRenaming] = useState(false);
     const [selectedProperties, setSelectedProperties] = useContext(GeneratorDataContext);
-
+    
+    const optionsComponent = {
+        cadena: <OptionsRandomString options={props.options} propertyName={props.name} />,
+        numero: <OptionsRandomNumber options={props.options} propertyName={props.name} />,
+        tarjetaCredito: <OptionsCreditCard options={props.options} propertyName={props.name} />,
+        fecha: <OptionsDate options={props.options} propertyName={props.name}/>
+    };
+    
     const StyledSelectedProperty = styled.div`
         background: ${theme.gray};
         border-radius: 4px;
-        border: 1px solid ${darken(0.1, theme.gray)};
-        margin-bottom: 1em;
+        margin-bottom: .5em;
+        border: 1px solid #f0f0f0;
         &>.ant-row{
             padding: 7px;
-            &:first-child{
-                
-            }
         }
     `;
 
@@ -49,6 +57,7 @@ function SelectedProperty(props){
                                     <DeleteOutlined />
                                 </IconButton>
                             </Col>
+                            {optionsComponent[props.type.id]}
                         </Row>
                     </StyledSelectedProperty>
                 )

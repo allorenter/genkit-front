@@ -44,3 +44,9 @@ export const generateJSON = (dataSchema, size, filename) => axios.post(
   { dataSchema, size, filename },
   getAuthHeader()
 );
+
+export const saveDataSchema = (dataSchema, name) => axios.post(
+  `${SERVER_URL}data-schema/save`,
+  { dataSchema, name },
+  getAuthHeader()
+);

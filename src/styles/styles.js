@@ -4,7 +4,7 @@ export const theme = {
     fontColor: '#565757',
     primary: '#2C3E50',
     secondary: '#1ABC9C',
-    gray: '#F5F8FA'
+    gray: '#fafafa'
 };
 
 export const customButton = (color, backgroundColor) => `

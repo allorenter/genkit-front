@@ -6,7 +6,7 @@ import GeneratorDataContext from '../context/GeneratorDataContext';
 import { customScrollbar } from '../styles/styles';
 import SelectedProperty from './SelectedProperty';
 
-function SelectedProperties(params) {
+function SelectedProperties(props) {
     
     const [selectedProperties, setSelectedProperties] = useContext(GeneratorDataContext);
 

@@ -1,3 +1,3 @@
-const PropertyType = (id, name, options, group) => ({ id, name, options, group });
+const PropertyType = (id, name, defaultOptions, group) => ({ id, name, defaultOptions, group });
 
 export default PropertyType;

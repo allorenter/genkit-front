@@ -21,6 +21,7 @@ function DataPreview(props){
             }catch(err){
                 if(err?.response || !err?.status){
                     setConnectionError(true);
+                    setLoading(false);
                     return false;
                 }
             }

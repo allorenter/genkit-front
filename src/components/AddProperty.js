@@ -65,7 +65,9 @@ function AddProperty(props) {
                 }
             }
         }
-        setSelectedProperties([ Property(selectedPropertyName, getPropertyTypeById(propertyTypeToAdd)), ...selectedProperties ] );
+        const propertyType = getPropertyTypeById(propertyTypeToAdd)
+        const propertyToAdd = Property(selectedPropertyName, propertyType.defaultOptions, propertyType);
+        setSelectedProperties([ propertyToAdd, ...selectedProperties ] );
         setModalVisible(false);
     };
 

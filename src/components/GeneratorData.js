@@ -14,9 +14,12 @@ const { getPropertyTypeById } = PropertyTypeList();
 const { TabPane } = Tabs;
 
 function GeneratorData(props){
+    const propertyTypeNombre = getPropertyTypeById('nombre');
+    const propertyTypeDni = getPropertyTypeById('dni');
+
     const [selectedProperties, setSelectedProperties] = useState([
-        Property('nombre', getPropertyTypeById('nombre')),
-        Property('dni', getPropertyTypeById('dni')),
+        Property('nombre', propertyTypeNombre.defaultOptions, propertyTypeNombre),
+        Property('dni', propertyTypeDni.defaultOptions, propertyTypeDni),
     ]);
     const [previewType, setPreviewType] = useState('csv');
 

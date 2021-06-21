@@ -34,7 +34,7 @@ function SelectedPropertyName(props){
             }
         }
         setName(newName);
-        // renombro la propiedad en selectedProperties
+        // renombro la propiedad en el context del generador
         setSelectedProperties(selectedProperties.map((property) => {
             const rename = (property.name === props.name) ? newName : property.name;
             property.name = rename.replace(/ /g, '');
