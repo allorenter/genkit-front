@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Col, Modal, Button, Row, Input, Alert, notification } from 'antd';
+import { Modal, Button, Input, Alert, notification } from 'antd';
 import GeneratorDataContext from '../context/GeneratorDataContext';
 import { theme, customButton } from '../styles/styles';
 import styled from '@emotion/styled';
@@ -10,7 +10,7 @@ import ConnectionErrorContext from '../context/ConectionErrorContext';
 
 function SaveDataSchema(props){
     const [modalVisible, setModalVisible] = useState(false);
-    const [selectedProperties, setSelectedProperties] = useContext(GeneratorDataContext);
+    const [selectedProperties] = useContext(GeneratorDataContext);
     const [dataSchemaName, setDataSchemaName] = useState('');
     const [, setLoading] = useContext(LoadingContext); 
     const [ , setConnectionError] = useContext(ConnectionErrorContext);
@@ -38,7 +38,7 @@ function SaveDataSchema(props){
     
     const OpenModalBtn = styled(Button)`
         ${customButton('white', theme.secondary)}    
-        font-size: 1.4em;
+        font-size: 1.2em;
         padding: 0;
         display: flex;
         align-items: center;

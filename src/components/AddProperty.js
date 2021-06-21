@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import styled from '@emotion/styled';
-import { theme, customButton } from '../styles/styles';
+import { theme, customButton, customLink } from '../styles/styles';
 import { Col, Modal, Tabs, Button, Row } from 'antd';
 import PropertyTypeList from '../utils/PropertyTypeList';
 import GeneratorDataContext from '../context/GeneratorDataContext';
@@ -32,14 +32,10 @@ function AddProperty(props) {
         }
     `;
     const PropertySelector = styled(Button)`
-        margin: 10px 5%;
+        ${customLink(theme.primary)}
         text-align: left;
-        width: 90%;
-        ${customButton(theme.fontColor, theme.gray)}
-        font-weight: normal;
+        padding: 1em;
         @media (max-width: 576px) {
-            width: 100%;
-            margin: 10px 0;
             text-align: center;
         }
     `;
@@ -78,7 +74,7 @@ function AddProperty(props) {
         propertiesInGroup?.sort((a, b) => a.name > b.name ? 1 : -1);
         return propertiesInGroup?.map((property) => (
             <Col key={property.id} xs={24} sm={12} md={8} lg={8} xl={8} >
-                <PropertySelector onClick={() => addPropertyToContextGenerator(property.id)} value={property.id}>
+                <PropertySelector type='link' onClick={() => addPropertyToContextGenerator(property.id)} value={property.id}>
                     {property.name}
                 </PropertySelector>
             </Col>

@@ -4,37 +4,71 @@ import { generateCSV, generateJSON } from '../utils/api';
 import GeneratorDataContext from '../context/GeneratorDataContext';
 import fileDownload from 'js-file-download';
 import styled from '@emotion/styled';
-import { theme, customButton } from '../styles/styles';
+import { theme, customButton, customFormLabel } from '../styles/styles';
+import LoadingContext from '../context/LoadingContext';
+import ConnectionErrorContext from '../context/ConectionErrorContext';
 
 function GeneratedDataDownload(props){    
     const [modalVisible, setModalVisible] = useState(false);
     const [amount, setAmount] = useState(50);
     const [filename, setFilename] = useState('filename');
     const [selectedProperties, ] = useContext(GeneratorDataContext);
+    const [filenameError, setFilenameError] = useState(false);
+    const [, setLoading] = useContext(LoadingContext);
+    const [, setConnectionError] = useContext(ConnectionErrorContext);
+
+    const StyledLabel = styled.label`
+        ${customFormLabel()}
+    `;
+
+    const StyledBtn = styled(Button)`
+        ${customButton('white', theme.primary)}    
+    `;
+
+    const StyledErrorMsg = styled.label`
+        ${customFormLabel()}
+        color: ${theme.error};
+    `;
 
     const handleDownloadCSV = async () => {
-        const response = await generateCSV(selectedProperties, amount, filename);
-        const csv = response.data;
-        fileDownload(csv, `${filename}.csv`, response.headers['content-type'])
+        try{
+            setLoading(true);
+            const response = await generateCSV(selectedProperties, amount, filename);
+            const csv = response.data;
+            fileDownload(csv, `${filename}.csv`, response.headers['content-type'])
+            setLoading(false);
+        }catch(err){
+            setConnectionError(true);
+        }        
     };
 
     const handleDownloadJSON = async () => {
-        const response = await generateJSON(selectedProperties, amount, filename);
-        const json = JSON.stringify(response.data);
-        fileDownload(json, `${filename}.json`, response.headers['content-type']);
+        try{
+            setLoading(true);
+            const response = await generateJSON(selectedProperties, amount, filename);
+            const json = JSON.stringify(response.data);
+            fileDownload(json, `${filename}.json`, response.headers['content-type']);
+            setLoading(false);
+        }catch(err) {
+            setConnectionError(true);
+        }
     };
 
-    const OpenModalButton = styled(Button)`
-        ${customButton('white', theme.secondary)}    
-        margin-right: 1em;
-    `;
+    const handleChangeFilename = (value) => {
+        if(!value){
+            setFilenameError(true);
+            return ;
+        }
+        setFilenameError(false);
+        setFilename(value);
+    };
 
     return (
         <React.Fragment>
-            <OpenModalButton onClick={() => setModalVisible(true)}>
+            <StyledBtn style={{}} onClick={() => setModalVisible(true)}>
                 Descargar
-            </OpenModalButton>
-            <Modal
+            </StyledBtn>
+            {modalVisible && <Modal
                 title='Descarga'
                 visible={modalVisible}
                 onOk={() => setModalVisible(false)}
@@ -43,7 +77,7 @@ function GeneratedDataDownload(props){
                 width={720}
             >
                 <div>
-                    <span>Cantidad de objetos a generar: </span>
+                    <StyledLabel>Cantidad de objetos a generar: </StyledLabel>
                     <InputNumber
                         autoFocus={true}
                         min={1}
@@ -52,19 +86,20 @@ function GeneratedDataDownload(props){
                         onChange={(value) => setAmount(value)}
                     />    
                 </div>
-                <div>
-                    <span>Nombre del archivo: </span>
-                    <Input defaultValue={filename} onChange={(e) => setFilename(e.target.value)} />
+                <div style={{marginTop: '1EM'}}>
+                    <StyledLabel>Nombre del archivo: </StyledLabel>
+                    <Input defaultValue={filename} onChange={(e) => handleChangeFilename(e.target.value)} />
+                    {filenameError && <StyledErrorMsg>Debes escribir un nombre para el archivo</StyledErrorMsg>}
                 </div>
-                <div>
-                    <Button onClick={handleDownloadCSV}>
+                <div style={{marginTop: '1em'}}>
+                    <StyledBtn onClick={handleDownloadCSV}>
                         CSV
-                    </Button>
-                    <Button onClick={handleDownloadJSON}>
+                    </StyledBtn>
+                    <StyledBtn style={{marginLeft: '1em'}} onClick={handleDownloadJSON}>
                         JSON
-                    </Button>
+                    </StyledBtn>
                 </div>
-            </Modal>
+            </Modal>}
         </React.Fragment>
     );
 }

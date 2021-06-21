@@ -3,14 +3,36 @@ import { dataPreview } from '../utils/api';
 import ConnectionErrorContext from '../context/ConectionErrorContext';
 import GeneratorDataContext from '../context/GeneratorDataContext';
 import LoadingContext from '../context/LoadingContext';
-import { Table } from "antd";
+import { Table, Button } from "antd";
+import { theme, customLink, scrollbar } from '../styles/styles';
+import styled from '@emotion/styled';
+import { darken, lighten } from 'polished';
 
 function DataPreview(props){
     const [data, setData] = useState([]);
     const [, setLoading] = useContext(LoadingContext);  
     const [ , setConnectionError] = useContext(ConnectionErrorContext);
     const [selectedProperties, ] = useContext(GeneratorDataContext);
-    
+    const [beautify, setBeautify] = useState(false);
+
+    const StyledLink = styled(Button)`
+        ${customLink(theme.secondary)}
+        position: absolute;
+        right: 3em;
+    `;
+
+    const FormatedJson = styled.pre`
+        ${scrollbar()}
+        height: calc(100vh - 165px);
+        color: ${theme.primary};
+        .key{
+            color: ${theme.fontColor};
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+    `;
+
+
     useEffect(() => {
         async function fetchData(){
             try{
@@ -19,7 +41,7 @@ function DataPreview(props){
                 setData(response.data.data.previewData || [])
                 setLoading(false);
             }catch(err){
-                if(err?.response || !err?.status){
+                if(err?.response || !err?.status) {
                     setConnectionError(true);
                     setLoading(false);
                     return false;
@@ -53,7 +75,13 @@ function DataPreview(props){
                         return generatedObject;
                     })} 
                   />
-                : <pre dangerouslySetInnerHTML={{__html: formatJson(JSON.stringify(data, undefined, 2))}} />
+                : <React.Fragment>
+                    <StyledLink onClick={() => setBeautify(!beautify)} type='link'>Formatear</StyledLink>
+                    {beautify 
+                        ? <FormatedJson dangerouslySetInnerHTML={{__html: formatJson(JSON.stringify(data, undefined, 2))}} /> 
+                        : <pre style={{whiteSpace: 'pre-wrap', width: '85%'}} dangerouslySetInnerHTML={{__html: JSON.stringify(data)}} />
+                    }                    
+                </React.Fragment>
             }
         </React.Fragment>
     );

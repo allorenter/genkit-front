@@ -16,7 +16,6 @@ const { TabPane } = Tabs;
 function GeneratorData(props){
     const propertyTypeNombre = getPropertyTypeById('nombre');
     const propertyTypeDni = getPropertyTypeById('dni');
-
     const [selectedProperties, setSelectedProperties] = useState([
         Property('nombre', propertyTypeNombre.defaultOptions, propertyTypeNombre),
         Property('dni', propertyTypeDni.defaultOptions, propertyTypeDni),
@@ -25,7 +24,7 @@ function GeneratorData(props){
 
     const AlignRightButtons = styled.div`
         position: absolute;
-        right: 5%;
+        right: 1em;
         z-index: 1;
         top: 1.5em;
     `;
@@ -49,10 +48,10 @@ function GeneratorData(props){
                         <GeneratedDataDownload />
                     </AlignRightButtons>
                     <Tabs defaultActiveKey="csv" onChange={(key) => setPreviewType(key)}>
-                        <TabPane tab='CSV' key='csv'>
+                        <TabPane tab={<span style={{fontSize:16, fontWeight: '600'}}>CSV</span>} key='csv'>
                             <DataPreview type={previewType} />
                         </TabPane>
-                        <TabPane tab='JSON' key='json'>
+                        <TabPane tab={<span style={{fontSize:16, fontWeight: '600'}}>JSON</span>} key='json'>
                             <DataPreview type={previewType} />
                         </TabPane>
                     </Tabs>

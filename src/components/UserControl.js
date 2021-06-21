@@ -5,16 +5,20 @@ import styled from '@emotion/styled';
 import UserControlForAccess from './UserControlForAccess';
 import UserControlLogOut from './UserControlLogOut';
 import LoginContext from '../context/LoginContext';
+import { theme, customButton } from '../styles/styles';
 
 function UserControl(props){
     const [login] = useContext(LoginContext);
     const [modalVisible, setModalVisible] = useState(false);
     const [title, setTitle] = useState(login ? "Cerrar sesión" : "Registrarse");
 
-    const StyledButton = styled(Button)`
-        background: inherit!important;
-        border: none;
-        color: white;
+    const StyledBtn = styled(Button)`
+        ${customButton('white', theme.secondary)}
+        border-radius: 0;
+        font-size: 1.2em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     `;
 
     const contentComponent = ( 
@@ -25,10 +29,10 @@ function UserControl(props){
 
     return (
         <React.Fragment>
-            <StyledButton onClick={() => setModalVisible(true)}>
+            <StyledBtn onClick={() => setModalVisible(true)}>
                 <UserOutlined />
-            </StyledButton>
-            <Modal
+            </StyledBtn>
+            {modalVisible && <Modal
                 title={title}
                 visible={modalVisible}
                 onOk={() => setModalVisible(false)}
@@ -37,7 +41,7 @@ function UserControl(props){
                 width={480}
             >
                 {contentComponent}
-            </Modal>
+            </Modal>}
         </React.Fragment>
     );
 }

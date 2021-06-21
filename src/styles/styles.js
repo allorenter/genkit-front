@@ -4,7 +4,8 @@ export const theme = {
     fontColor: '#565757',
     primary: '#2C3E50',
     secondary: '#1ABC9C',
-    gray: '#fafafa'
+    gray: '#F5F8FA',
+    error: '#ff4d4f'
 };
 
 export const customButton = (color, backgroundColor) => `
@@ -76,4 +77,27 @@ export const overlay = () => `
     z-index: 2;
     background: white;
     opacity: .7;
+`;
+
+export const customFormLabel = () => `
+    font-weight: 600;
+`;
+
+export const customLink = (color) => `
+    font-weight: 600;
+    color: ${color};
+    &:hover {
+        color: ${darken(0.1, color)};
+    }
+`;
+
+export const scrollbar = () => `
+    &::-webkit-scrollbar{
+        padding: 10px 0;
+        width: 6px;
+    }
+    &::-webkit-scrollbar-thumb{
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: ${theme.gray};
+    } 
 `;

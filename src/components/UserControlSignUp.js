@@ -4,10 +4,24 @@ import { userNameExists, signUpUser } from '../utils/api';
 import ConnectionErrorContext from '../context/ConectionErrorContext';
 import { setAuth } from '../utils/auth';
 import AppIsLoadedContext from '../context/AppIsLoadedContext';
+import { customFormLabel, customButton, theme, customLink } from '../styles/styles';
+import styled from '@emotion/styled';
 
 function UserControlSignUp(props){
     const [ , setConnectionError] = useContext(ConnectionErrorContext);
     const [, setAppIsLoaded] = useContext(AppIsLoadedContext);
+
+    const StyledFormItem = styled(Form.Item)`
+        ${customFormLabel()}
+    `;
+
+    const StyledBtn = styled(Button)`
+        ${customButton('white', theme.primary)} 
+    `;
+
+    const StyledLink = styled(Button)`
+        ${customLink(theme.secondary)}
+    `;
 
     const userNameValidator = async (rule, value) => {
         if(value === ''){
@@ -35,7 +49,6 @@ function UserControlSignUp(props){
           if (!value || getFieldValue('password') === value) {
             return Promise.resolve();
           }
-
           return Promise.reject(new Error('Las contrasñas no coinciden'));
         },
     });
@@ -62,7 +75,7 @@ function UserControlSignUp(props){
                 initialValues={ { remember: false } }
                 onFinish = {handleFinish}
             >
-                <Form.Item
+                <StyledFormItem
                     label='Nombre de usuario'
                     name='userName'
                     hasFeedback
@@ -76,8 +89,8 @@ function UserControlSignUp(props){
                     ]}
                 >
                     <Input />
-                </Form.Item>
-                <Form.Item
+                </StyledFormItem>
+                <StyledFormItem
                     label='Contraseña'
                     name='password'
                     hasFeedback
@@ -91,8 +104,8 @@ function UserControlSignUp(props){
                     ]}
                 >
                     <Input.Password />
-                </Form.Item>
-                <Form.Item
+                </StyledFormItem>
+                <StyledFormItem
                     label='Confirmar contraseña'
                     name='confirmPassword'
                     hasFeedback
@@ -106,16 +119,16 @@ function UserControlSignUp(props){
                     ]}
                 >
                     <Input.Password />
-                </Form.Item>
+                </StyledFormItem>
                 <Form.Item>
-                    <Button type='primary' htmlType='submit'>
+                    <StyledBtn htmlType='submit'>
                         Unirse
-                    </Button>
+                    </StyledBtn>
                 </Form.Item>
             </Form>
-            <Button type='link' onClick={() => props.setAccessType('logIn')} >
+            <StyledLink type='link' onClick={() => props.setAccessType('logIn')} >
                 ¿Ya tienes una cuenta?
-            </Button>
+            </StyledLink>
         </React.Fragment>
     );
 }

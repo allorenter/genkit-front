@@ -4,11 +4,25 @@ import { signInUser } from '../utils/api';
 import ConnectionErrorContext from '../context/ConectionErrorContext';
 import { setAuth } from '../utils/auth';
 import AppIsLoadedContext from '../context/AppIsLoadedContext';
+import { customFormLabel, customButton, theme, customLink } from '../styles/styles';
+import styled from '@emotion/styled';
 
 function UserControlLogIn(props){
     const [ , setConnectionError] = useContext(ConnectionErrorContext);
     const [authError, setAuthError] = useState(false);
     const [, setAppIsLoaded] = useContext(AppIsLoadedContext);
+
+    const StyledFormItem = styled(Form.Item)`
+        ${customFormLabel()}
+    `;
+
+    const StyledBtn = styled(Button)`
+        ${customButton('white', theme.primary)} 
+    `;
+
+    const StyledLink = styled(Button)`
+        ${customLink(theme.secondary)}
+    `;
 
     const handleFinish = async ({userName, password}) => {
         try{
@@ -17,7 +31,6 @@ function UserControlLogIn(props){
             props.setParentModalVisible(false);
             setAppIsLoaded(false);
         }catch(err){
-            console.log(err.response);
             if(err?.response?.status === 401){
                 setAuthError(true);
                 return false;
@@ -39,7 +52,7 @@ function UserControlLogIn(props){
                 initialValues={ { remember: true } }
                 onFinish = {handleFinish}
             >
-                <Form.Item
+                <StyledFormItem
                     label='Nombre de usuario'
                     name='userName'
                     rules={[
@@ -51,8 +64,8 @@ function UserControlLogIn(props){
                     ]}
                 >
                     <Input />
-                </Form.Item>
-                <Form.Item
+                </StyledFormItem>
+                <StyledFormItem
                     label='Contraseña'
                     name='password'
                     rules={[
@@ -64,17 +77,17 @@ function UserControlLogIn(props){
                     ]}
                 >
                     <Input.Password />
-                </Form.Item>
-                <Form.Item>
-                    <Button type='primary' htmlType='submit'>
+                </StyledFormItem>
+                <StyledFormItem>
+                    <StyledBtn htmlType='submit'>
                         Acceder
-                    </Button>
-                </Form.Item>
+                    </StyledBtn>
+                </StyledFormItem>
             </Form>
             {authError && <p>ERROR AL AUTENTICAR</p>}
-            <Button type="link" onClick={() => props.setAccessType('signIn')} >
+            <StyledLink type="link" onClick={() => props.setAccessType('signIn')} >
                 Registrarse
-            </Button>
+            </StyledLink>
         </React.Fragment>
     );
 }

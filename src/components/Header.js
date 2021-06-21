@@ -10,7 +10,7 @@ function Header(props){
         align-items: center;
     `;
     const StyledBrand = styled.span`
-
+        margin-left: 2em;
     `;
 
     return (

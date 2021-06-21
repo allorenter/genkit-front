@@ -26,8 +26,8 @@ function SelectedProperty(props){
     const StyledSelectedProperty = styled.div`
         background: ${theme.gray};
         border-radius: 4px;
-        margin-bottom: .5em;
-        border: 1px solid #f0f0f0;
+        border: 1px solid ${darken(0.1, theme.gray)};
+        margin-bottom: 1em;
         &>.ant-row{
             padding: 7px;
         }
