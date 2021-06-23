@@ -21,14 +21,9 @@ function UserControl(props){
         justify-content: center;
     `;
 
-    const contentComponent = ( 
-        login 
-            ? <UserControlLogOut setTitle={setTitle} setParentModalVisible={setModalVisible} /> 
-            : <UserControlForAccess setTitle={setTitle} setParentModalVisible={setModalVisible} />
-    );
-
     return (
         <React.Fragment>
+            
             <StyledBtn onClick={() => setModalVisible(true)}>
                 <UserOutlined />
             </StyledBtn>
@@ -40,7 +35,10 @@ function UserControl(props){
                 footer={null}
                 width={480}
             >
-                {contentComponent}
+                { login 
+                    ? <UserControlLogOut setTitle={setTitle} setParentModalVisible={setModalVisible} /> 
+                    : <UserControlForAccess setTitle={setTitle} setParentModalVisible={setModalVisible} />
+                }
             </Modal>}
         </React.Fragment>
     );

@@ -4,7 +4,7 @@ export const theme = {
     fontColor: '#565757',
     primary: '#2C3E50',
     secondary: '#1ABC9C',
-    gray: '#F5F8FA',
+    gray: '#fafafa',
     error: '#ff4d4f'
 };
 
@@ -100,4 +100,18 @@ export const scrollbar = () => `
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
         background-color: ${theme.gray};
     } 
+`;
+
+export const importantText = (color = 'black') => `
+    margin: 0;
+    color: ${color};
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    word-wrap: break-word;
+    padding: 16px 24px;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    border-radius: 2px 2px 0 0;
+}
 `;
