@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Button, Modal, InputNumber, Input } from 'antd';
+import { Button, Modal, InputNumber, Input, Row, Col } from 'antd';
 import { generateCSV, generateJSON } from '../utils/api';
 import GeneratorDataContext from '../context/GeneratorDataContext';
 import fileDownload from 'js-file-download';
@@ -28,6 +28,7 @@ function GeneratedDataDownload(props){
     const StyledErrorMsg = styled.label`
         ${customFormLabel()}
         color: ${theme.error};
+        margin-top: .8em;
     `;
 
     const handleDownloadCSV = async () => {
@@ -76,29 +77,38 @@ function GeneratedDataDownload(props){
                 footer={null}
                 width={720}
             >
-                <div>
-                    <StyledLabel>Cantidad de objetos a generar: </StyledLabel>
-                    <InputNumber
-                        autoFocus={true}
-                        min={1}
-                        max={1000}
-                        defaultValue={amount}
-                        onChange={(value) => setAmount(value)}
-                    />    
-                </div>
-                <div style={{marginTop: '1EM'}}>
-                    <StyledLabel>Nombre del archivo: </StyledLabel>
-                    <Input defaultValue={filename} onChange={(e) => handleChangeFilename(e.target.value)} />
-                    {filenameError && <StyledErrorMsg>Debes escribir un nombre para el archivo</StyledErrorMsg>}
-                </div>
-                <div style={{marginTop: '1em'}}>
-                    <StyledBtn onClick={handleDownloadCSV}>
-                        CSV
+                <Row>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={8}>
+                        <StyledLabel>Cantidad de objetos a generar: </StyledLabel>
+                    </Col>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={14}>
+                        <InputNumber
+                            autoFocus={true}
+                            min={1}
+                            max={1000}
+                            defaultValue={amount}
+                            onChange={(value) => setAmount(value)}
+                        />
+                    </Col>
+                </Row>
+                <Row style={{marginTop: '1em'}}>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={8}>
+                        <StyledLabel>Nombre del archivo: </StyledLabel>
+                    </Col>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={14}>
+                        <Input 
+                            defaultValue={filename} 
+                            suffix={`.${props.fileType}`}
+                            onChange={(e) => handleChangeFilename(e.target.value)} 
+                        />
+                        {filenameError && <StyledErrorMsg>Debes escribir un nombre para el archivo</StyledErrorMsg>}
+                    </Col>
+                </Row>
+                <Row style={{marginTop: '1em'}}>
+                    <StyledBtn disabled={filenameError} onClick={props.fileType === 'csv' ? handleDownloadCSV : handleDownloadJSON}>
+                        Descargar archivo
                     </StyledBtn>
-                    <StyledBtn style={{marginLeft: '1em'}} onClick={handleDownloadJSON}>
-                        JSON
-                    </StyledBtn>
-                </div>
+                </Row>
             </Modal>}
         </React.Fragment>
     );

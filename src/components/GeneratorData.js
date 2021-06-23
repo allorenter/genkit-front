@@ -20,7 +20,7 @@ function GeneratorData(props){
         Property('nombre', propertyTypeNombre.defaultOptions, propertyTypeNombre),
         Property('dni', propertyTypeDni.defaultOptions, propertyTypeDni),
     ]);
-    const [previewType, setPreviewType] = useState('csv');
+    const [fileType, setfileType] = useState('csv');
 
     const AlignRightButtons = styled.div`
         position: absolute;
@@ -45,14 +45,14 @@ function GeneratorData(props){
                 </Col>
                 <Col xs={24} sm={24} md={16} lg={16} xl={18} style={{padding: '1em'}}>
                     <AlignRightButtons>
-                        <GeneratedDataDownload />
+                        <GeneratedDataDownload fileType={fileType} />
                     </AlignRightButtons>
-                    <Tabs defaultActiveKey="csv" onChange={(key) => setPreviewType(key)}>
+                    <Tabs defaultActiveKey="csv" onChange={(key) => setfileType(key)}>
                         <TabPane tab={<span style={{fontSize:16, fontWeight: '600'}}>CSV</span>} key='csv'>
-                            <DataPreview type={previewType} />
+                            <DataPreview type={fileType} />
                         </TabPane>
                         <TabPane tab={<span style={{fontSize:16, fontWeight: '600'}}>JSON</span>} key='json'>
-                            <DataPreview type={previewType} />
+                            <DataPreview type={fileType} />
                         </TabPane>
                     </Tabs>
                 </Col>
