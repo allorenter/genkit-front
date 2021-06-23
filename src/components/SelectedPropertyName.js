@@ -45,6 +45,7 @@ function SelectedPropertyName(props){
 
     const PropertyName = styled.span`
         font-weight: 600;
+        font-size: 1em;
     `;
 
     return (

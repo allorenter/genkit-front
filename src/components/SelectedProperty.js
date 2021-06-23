@@ -25,16 +25,18 @@ function SelectedProperty(props){
     
     const StyledSelectedProperty = styled.div`
         background: ${theme.gray};
-        border-radius: 4px;
-        border: 1px solid ${darken(0.1, theme.gray)};
+        border-radius: 2px;
+        border: 1px solid ${darken(0.05, theme.gray)};
         margin-bottom: 1em;
-        &>.ant-row{
-            padding: 7px;
-        }
     `;
 
     const IconButton = styled(Button)`
-        color: ${theme.primary}
+        font-size: 1.05em;
+        color: ${theme.primary};
+        padding: 0;
+        &:hover {
+            color: ${theme.secondary};
+        }
     `;
         
     return (
@@ -42,12 +44,12 @@ function SelectedProperty(props){
             {
                 (provided) => (
                     <StyledSelectedProperty ref={provided.innerRef}{...provided.draggableProps}{...provided.dragHandleProps}>
-                        <Row>
-                            <Col style={{ display: 'flex', alignItems: 'center' }} xs={20} sm={20} md={18} lg={20} xl={20}>
+                        <Row style={{padding: '.5em'}}>
+                            <Col style={{ display: 'flex', alignItems: 'center' }} xs={18} sm={18} md={18} lg={18} xl={18}>
                                 <SelectedPropertyName name={props.name} renaiming={renaiming} setRenaming={setRenaming}/>
                             </Col>
-                            <Col style={{display: 'flex'}} xs={4} sm={4} md={5} lg={4} xl={4}>
-                                <IconButton style={{padding: '.1em .5em'}} type='link' onClick={() => setRenaming(true)}>
+                            <Col style={{display: 'flex', alignItems: 'center', justifyContent: 'space-evenly'}} xs={6} sm={6} md={6} lg={6} xl={6}>
+                                <IconButton type='link' onClick={() => setRenaming(true)}>
                                     <EditOutlined />
                                 </IconButton>
                                 <IconButton 

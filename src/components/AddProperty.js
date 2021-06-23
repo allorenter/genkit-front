@@ -34,7 +34,10 @@ function AddProperty(props) {
     const PropertySelector = styled(Button)`
         ${customLink(theme.primary)}
         text-align: left;
-        padding: 1em;
+        margin: .5em 0;
+        &:hover {
+            color: ${theme.secondary}
+        }
         @media (max-width: 576px) {
             text-align: center;
         }
@@ -93,6 +96,7 @@ function AddProperty(props) {
                 onCancel={() => setModalVisible(false)}
                 footer={null}
                 width={720}
+                style={{ paddingTop: '12px' }}
             >
                 <GroupTab>
                     <Tabs.TabPane tab='Todos' key='all'>
