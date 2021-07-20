@@ -22,8 +22,9 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "compile:css": "less-watch-compiler --enable-js --run-once src/styles src/styles main.less",
+    "start": "npm run compile:css && react-scripts start",
+    "build": "npm run compile:css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -44,5 +45,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "less": "^4.1.1",
+    "less-watch-compiler": "^1.16.2"
   }
 }
