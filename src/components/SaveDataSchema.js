@@ -1,114 +1,86 @@
-import React, { useState, useContext } from 'react';
-import { Modal, Button, Input, Alert, notification } from 'antd';
+import React, { useContext, useRef, useState } from 'react';
+import { Button, Input, Alert, Form } from 'antd';
 import GeneratorDataContext from '../context/GeneratorDataContext';
-import { theme, customButton, importantText } from '../styles/styles';
+import { customFormLabel } from '../styles/styles';
 import styled from '@emotion/styled';
-import { SaveOutlined } from '@ant-design/icons';
 import { saveDataSchema } from '../utils/api';
-import LoadingContext from '../context/LoadingContext';
 import ConnectionErrorContext from '../context/ConectionErrorContext';
-import LoginContext from '../context/LoginContext';
-import UserControlForAccess from './UserControlForAccess';
 
 function SaveDataSchema(props) {
-    const [modalVisible, setModalVisible] = useState(false);
     const [selectedProperties] = useContext(GeneratorDataContext);
-    const [dataSchemaName, setDataSchemaName] = useState('');
-    const [, setLoading] = useContext(LoadingContext);
+    const [loading, setLoading] = useState(false);
     const [, setConnectionError] = useContext(ConnectionErrorContext);
-    const [showExistsMessage, setShowExistsMessage] = useState(false);
-    const [login] = useContext(LoginContext);
-    const [titleUserAccess, setTitleUserAccess] = useState('');
+    const [schemaNameExists, setSchemaNameExists] = useState(false);
+    const [createdSchemaName, setCreatedSchemaName] = useState(false);
+    const formRef = useRef(null);
 
-    const handleSaveClick = async () => {
+    const StyledFormItem = styled(Form.Item)`
+        ${customFormLabel()}
+    `;
+
+    const handleFinish = async (value) => {
+        setCreatedSchemaName(false);
         try {
-            setShowExistsMessage(false);
             setLoading(true);
-            await saveDataSchema(selectedProperties, dataSchemaName);
+            await saveDataSchema(selectedProperties, value.schemaName);
             setLoading(false);
-            openSuccessNotification();
+            setSchemaNameExists(false);
+            formRef.current.resetFields();
+            setCreatedSchemaName(true);
+            props.setUpdateList(props.updateList + 1);
         } catch (err) {
             if (err?.response?.status === 409) {
-                setShowExistsMessage(true);
+                setLoading(false);
+                setSchemaNameExists(true);
                 return false;
             }
             setConnectionError(err.response ? true : false);
-            setLoading(false);
-            setModalVisible(false);
         }
     };
 
-    const OpenModalBtn = styled(Button)`
-        ${customButton('white', theme.secondary)}    
-        font-size: 1.2em;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 80%;
-    `;
-
-    const SaveListBtn = styled(Button)`
-        ${customButton('white', theme.secondary)}    
-    `;
-
-    const openSuccessNotification = () => notification.open({
-        message: 'Lista guardada con éxito',
-        duration: 3,
-    });
-    
-    const StyledText = styled.div`
-        ${importantText()}
+    const StyledLabel = styled.label`
+        ${customFormLabel()}
     `;
 
     return (
-        <React.Fragment>
-            <OpenModalBtn type='link' onClick={() => setModalVisible(true)} title="Guardar lista de propiedades">
-                <SaveOutlined />
-            </OpenModalBtn>
-            {modalVisible
-                ? <Modal
-                    title='Guardar listas de propiedades'
-                    visible={modalVisible}
-                    onOk={() => setModalVisible(false)}
-                    onCancel={() => setModalVisible(false)}
-                    footer={null}
-                    width={720}
+        <Form
+            hideRequiredMark={true}
+            name="form"
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+            initialValues={{ remember: true }}
+            onFinish={handleFinish}
+            ref={formRef}
+        >
+            {schemaNameExists && <Alert
+                type="warning"
+                message="Ya hay guardada una lista con ese nombre"
+                showIcon
+                style={{marginBottom: '1em'}}
+            />}
+            {createdSchemaName && <Alert
+                type="success"
+                message="Lista creada con éxito"
+                showIcon
+                style={{marginBottom: '1em'}}
+            />}
+            <StyledFormItem
+                label={<StyledLabel>Nombre del listado: </StyledLabel>}
+                name="schemaName"
+                rules={[{ required: true, message: 'Debes escribir un nombre para la lista' }]}
+            >
+                <Input />
+            </StyledFormItem>
+            <Form.Item wrapperCol={{ label: 24 }}>
+                <Button 
+                    loading={loading} 
+                    type="primary" 
+                    htmlType="submit"                    
                 >
-                    {login
-                        ? <React.Fragment>
-                            <label>Nombre del listado: </label>
-                            <Input onChange={(e) => setDataSchemaName(e.target.value)} />
-                            <SaveListBtn onClick={handleSaveClick}>
-                                Guardar Lista
-                            </SaveListBtn>
-                            {(() => {
-                                if (showExistsMessage) {
-                                    return <Alert message="Ya existe una lista con ese nombre" type="warning" showIcon />;
-                                }
-                            })()}
-                        </React.Fragment>
-                        : <React.Fragment>
-                            <Alert
-                                message='Debes estar registrado para poder guardar listas de propiedades'
-                                type="warning"
-                                
-                            />
-                            <StyledText style={{marginTop: '1em', paddingLeft: '.4em'}}>
-                                {titleUserAccess}
-                            </StyledText>
-                            <div style={{padding: '.5em 1em'}}>
-                                <UserControlForAccess setTitle={setTitleUserAccess} setParentModalVisible={setModalVisible} />
-                            </div>
-                        </React.Fragment>
-                    }
-
-
-                </Modal>
-                : null
-            }
-
-        </React.Fragment>
+                    Guardar
+                </Button>
+            </Form.Item>
+        </Form>
     );
 }
 

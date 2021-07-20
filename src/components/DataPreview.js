@@ -6,7 +6,6 @@ import LoadingContext from '../context/LoadingContext';
 import { Table, Button } from "antd";
 import { theme, customLink, scrollbar } from '../styles/styles';
 import styled from '@emotion/styled';
-import { darken, lighten } from 'polished';
 
 function DataPreview(props){
     const [data, setData] = useState([]);
@@ -31,7 +30,6 @@ function DataPreview(props){
             font-size: 1.1em;
         }
     `;
-
 
     useEffect(() => {
         async function fetchData(){
@@ -68,11 +66,11 @@ function DataPreview(props){
                 ? <Table 
                     pagination={false} 
                     columns={selectedProperties.map(({name}) => ({title: name, dataIndex: name, key: name}))} 
-                    dataSource={data.map((generatedObject) => {
+                    dataSource={data.map((generatedObject, index) => {
                         if(typeof generatedObject.boolean !== 'undefined'){
                             generatedObject.boolean = generatedObject.boolean.toString();
                         }
-                        return generatedObject;
+                        return {key: index, ...generatedObject};
                     })} 
                   />
                 : <React.Fragment>

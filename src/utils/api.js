@@ -3,7 +3,7 @@ import { getAuthHeader } from './auth';
 
 let server = "http://localhost:9000/api/";
 if (process.env.NODE_ENV === 'production') {
-   server = "http://localhost:9000/api/";
+  server = "http://localhost:9000/api/";
 }
 
 const SERVER_URL = server;
@@ -50,3 +50,13 @@ export const saveDataSchema = (dataSchema, name) => axios.post(
   { dataSchema, name },
   getAuthHeader()
 );
+
+export const getDataSchemas = () => axios.get(
+  `${SERVER_URL}data-schema/get`,
+  getAuthHeader()
+)
+
+export const deleteDataSchema = (idDataSchema) => axios.delete(
+  `${SERVER_URL}data-schema/delete/${idDataSchema}`,
+  getAuthHeader()
+) 

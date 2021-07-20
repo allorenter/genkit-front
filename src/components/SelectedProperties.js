@@ -47,6 +47,7 @@ function SelectedProperties(props) {
                     {(provided) => (
                         <div ref={provided.innerRef}{...provided.droppableProps}>
                             <PropertiesList properties={selectedProperties} />
+                            {provided.placeholder}
                         </div>
                     )}
                 </Droppable>

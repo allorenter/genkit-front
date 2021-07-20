@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react';
 import styled from '@emotion/styled';
-import { theme, customButton, customLink } from '../styles/styles';
+import { theme, customButton } from '../styles/styles';
 import { Col, Modal, Tabs, Button, Row } from 'antd';
 import PropertyTypeList from '../utils/PropertyTypeList';
 import GeneratorDataContext from '../context/GeneratorDataContext';
 import Property from '../utils/Property';
+import { lighten } from 'polished';
+
 
 function AddProperty(props) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -18,7 +20,7 @@ function AddProperty(props) {
     const GroupTab = styled(Tabs)`
         .ant-tabs-tab{
             color: ${theme.fontColor};
-            font-size: 1.1em;
+            font-size: 1em;
             &:hover, &:focus {
                 color: ${theme.primary};
             }
@@ -32,11 +34,13 @@ function AddProperty(props) {
         }
     `;
     const PropertySelector = styled(Button)`
-        ${customLink(theme.primary)}
+        font-weight: 500;
+        color: ${theme.primary};
+        width: 90%;
         text-align: left;
         margin: .5em 0;
         &:hover {
-            color: ${theme.secondary}
+            background: ${lighten(0.5, theme.secondary)}
         }
         @media (max-width: 576px) {
             text-align: center;

@@ -5,7 +5,8 @@ export const theme = {
     primary: '#2C3E50',
     secondary: '#1ABC9C',
     gray: '#fafafa',
-    error: '#ff4d4f'
+    error: '#ff4d4f',
+    hoversGray: '#f8f9fa'
 };
 
 export const customButton = (color, backgroundColor) => `
@@ -21,13 +22,6 @@ export const customButton = (color, backgroundColor) => `
         background: ${backgroundColor};
         border: none;
         color: ${color};
-    }
-`;
-
-export const iconButton = (color) => `
-    color: ${darken(0.4, color)};
-    &:hover, &:focus {
-        color: ${color}
     }
 `;
 
@@ -84,7 +78,7 @@ export const customFormLabel = () => `
 `;
 
 export const customLink = (color) => `
-    font-weight: 600;
+    font-weight: 500;
     color: ${color};
     &:hover {
         color: ${darken(0.1, color)};
@@ -114,4 +108,19 @@ export const importantText = (color = 'black') => `
     border-bottom: 1px solid #f0f0f0;
     border-radius: 2px 2px 0 0;
 }
+`;
+
+export const optionsLabel = () => `
+    font-size: .9em;
+    font-weight: 500;
+    margin-right: 6px;
+`;
+
+export const iconButton = (color, hoverColor) => `
+    font-size: 1.05em;
+    color: ${theme.primary};
+    padding: 0;
+    &:hover {
+        color: ${theme.secondary};
+    }
 `;
