@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { getAuthHeader } from './auth';
 
-let server = "http://localhost:9000/api/";
-if (process.env.NODE_ENV === 'production') {
-  server = "http://localhost:9000/api/";
-}
+const PRODUCTION_URI = 'https://allorenter-genkit.herokuapp.com/api/';
+const DEVELOPMENT_URI = 'http://localhost:9000/api/';
 
-const SERVER_URL = server;
+const SERVER_URL = process.env.NODE_ENV === 'production' ? PRODUCTION_URI : DEVELOPMENT_URI;
 
 export const userNameExists = (userName) => axios.get(
   `${SERVER_URL}user/user-exists/${userName}`
