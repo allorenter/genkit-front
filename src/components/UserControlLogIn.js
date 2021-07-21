@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Alert } from 'antd';
 import { signInUser } from '../utils/api';
 import ConnectionErrorContext from '../context/ConectionErrorContext';
 import { setAuth } from '../utils/auth';
@@ -45,6 +45,7 @@ function UserControlLogIn(props){
     const formLayout = { labelCol: { span: 24 }, wrapperCol: { span: 24 } };
     return (
         <React.Fragment>
+            {authError && <Alert style={{ marginBottom: '1em' }} message="Usuario o contraseña incorrectos" type="error" />}
             <Form
                 {...formLayout}
                 hideRequiredMark={true}
@@ -84,7 +85,6 @@ function UserControlLogIn(props){
                     </StyledBtn>
                 </StyledFormItem>
             </Form>
-            {authError && <p>ERROR AL AUTENTICAR</p>}
             <StyledLink type="link" onClick={() => props.setAccessType('signIn')} >
                 Registrarse
             </StyledLink>
